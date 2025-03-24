@@ -1,0 +1,52 @@
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+Conversion completed successfully!
+[2025-03-24 20:53:05] INFO: Application started
+[2025-03-24 20:54:19] WARNING: Conversion attempted without selecting a file
+[2025-03-24 20:54:32] INFO: Selected file: /Users/hetawk/Downloads/steve_ref.xml
+[2025-03-24 20:54:39] INFO: Starting conversion of file: /Users/hetawk/Downloads/steve_ref.xml
+[2025-03-24 20:54:39] INFO: Converting using XML converter
+[2025-03-24 20:54:39] SUCCESS: Conversion completed successfully. File: steve_ref.xml, Method: XML to BibTeX, Entries: 137
+[2025-03-24 20:59:26] INFO: Saving file as: /Users/hetawk/Downloads/mybib.bib
+[2025-03-24 20:59:26] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/mybib.bib
+[2025-03-24 20:59:30] INFO: Opened directory: /Users/hetawk/Downloads
+[2025-03-24 21:04:26] INFO: Application started
+[2025-03-24 21:14:09] INFO: Application started
+[2025-03-24 21:14:58] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
+[2025-03-24 21:15:03] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
+[2025-03-24 21:15:03] INFO: Converting using TXT converter (user selected)
+[2025-03-24 21:15:03] SUCCESS: Conversion completed successfully. File: conversion_log.txt, Method: Text to BibTeX (user selected), Entries: 1
+[2025-03-24 21:16:01] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 21:16:01] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 21:16:03] INFO: User chose to overwrite existing file
+[2025-03-24 21:16:03] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 21:16:06] INFO: Opened directory: /Users/hetawk/Downloads
+[2025-03-24 21:22:54] INFO: Application started
+[2025-03-24 21:23:25] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
+[2025-03-24 21:23:45] WARNING: The selected file appears to be a log file, not a reference file.
+[2025-03-24 21:48:00] INFO: Application started
+[2025-03-24 21:48:18] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
+[2025-03-24 21:48:26] WARNING: The selected file appears to be a log file, not a reference file.
+[2025-03-24 22:01:21] INFO: Application started
+[2025-03-24 22:04:15] INFO: Selected file: /Users/hetawk/Downloads/dfcgb.xml
+[2025-03-24 22:04:15] INFO: Auto-selected XML conversion type based on file extension
+[2025-03-24 22:04:21] INFO: Starting conversion of file: /Users/hetawk/Downloads/dfcgb.xml
+[2025-03-24 22:04:21] INFO: Selected conversion type: 1
+[2025-03-24 22:04:21] INFO: File extension: .xml
+[2025-03-24 22:04:21] INFO: First 100 chars of file: <?xml version="1.0" encoding="UTF-8" ?><xml><records><record><database name="EndNote_Library.enl" pa
+[2025-03-24 22:04:21] INFO: Converting using XML converter (user selected)
+[2025-03-24 22:04:21] SUCCESS: Conversion completed successfully. File: dfcgb.xml, Method: XML to BibTeX (user selected), Entries: 137
+[2025-03-24 22:04:31] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 22:04:31] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 22:04:33] INFO: User chose to overwrite existing file
+[2025-03-24 22:04:33] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
+[2025-03-24 22:04:35] INFO: Opened directory: /Users/hetawk/Downloads
+[2025-03-24 22:19:21] INFO: Application started
+[2025-03-24 22:19:56] INFO: Selected file: /Users/hetawk/Downloads/dfcgb.xml
