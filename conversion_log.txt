@@ -50,3 +50,4 @@ Conversion completed successfully!
 [2025-03-24 22:04:35] INFO: Opened directory: /Users/hetawk/Downloads
 [2025-03-24 22:19:21] INFO: Application started
 [2025-03-24 22:19:56] INFO: Selected file: /Users/hetawk/Downloads/dfcgb.xml
+[2025-03-24 22:56:07] INFO: Application started

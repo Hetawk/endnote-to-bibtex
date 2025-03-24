@@ -2,7 +2,7 @@
 
 A streamlined desktop application that converts EndNote XML reference files to BibTeX format for seamless integration with LaTeX projects.
 
-![Application Screenshot](app_screenshot.png)
+![Application Screenshot](img/app_screenshot.png)
 
 ## Motivation
 
@@ -32,7 +32,7 @@ When working with Microsoft Word, EndNote is a powerful reference management too
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/endnote-to-bibtex.git
+   git clone https://github.com/Hetawk/endnote-to-bibtex.git
    cd endnote-to-bibtex
    ```
 

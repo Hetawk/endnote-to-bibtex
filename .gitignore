@@ -5,6 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
+conversion_log.txt/
+
 
 # Distribution / packaging
 .Python
@@ -165,10 +167,38 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
-#.idea/
+.idea/
 
 # Ruff stuff:
 .ruff_cache/
 
 # PyPI configuration file
 .pypirc
+
+# PyCharm IDE files
+.idea/
+
+# Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+
+# macOS system files
+.DS_Store
+
+# Log files
+*.log
+
+# Environment variables
+.env
