@@ -490,6 +490,11 @@ class XML:
         formatted_fields = ""
         missing_fields = []
 
+        # Standard required fields that should always be included
+        all_std_fields = ["author", "title", "journal", "booktitle", "year",
+                          "volume", "number", "pages", "publisher", "address",
+                          "editor", "doi", "url", "month", "note"]
+
         # Process required fields first
         for field in required_fields:
             field_value = fields.get(field)
@@ -500,22 +505,20 @@ class XML:
                 formatted_fields += f'\n  {field} = "",'
                 missing_fields.append(field)
 
-        # Process all other fields
-        optional_fields = ["address", "editor", "volume", "number", "series",
-                           "month", "note", "publisher", "edition", "isbn", "doi", "url"]
+        # Process other standard fields - include them all with empty strings if missing
+        for field in all_std_fields:
+            if field not in required_fields:  # Skip if already processed as required
+                if field in fields:
+                    formatted_fields += f"\n  {field} = {{{fields[field]}}},"
+                else:
+                    formatted_fields += f'\n  {field} = "",'
 
-        # Add existing fields that weren't required
-        for field, field_value in fields.items():
-            if field not in required_fields:
-                formatted_fields += f"\n  {field} = {{{field_value}}},"
-                # Remove from optional fields list since we've added it
-                if field in optional_fields:
-                    optional_fields.remove(field)
+        # Process any remaining fields that are non-standard
+        for field, value in fields.items():
+            if field not in required_fields and field not in all_std_fields:
+                formatted_fields += f"\n  {field} = {{{value}}},"
 
-        # Add empty strings for missing optional fields
-        for field in optional_fields:
-            formatted_fields += f'\n  {field} = "",'
-
+        # Log warning for missing required fields
         if missing_fields and not self.suppress_warnings:
             title = fields.get('title', '')
             print(
@@ -528,141 +531,103 @@ class XML:
         formatted_fields = ""
         missing_fields = []
 
-        # Process fields in a specific order for consistency
-        field_order = ['author', 'title', 'journal', 'booktitle', 'publisher',
-                       'volume', 'number', 'series', 'edition', 'year', 'month',
-                       'pages', 'articleno', 'numpages', 'doi', 'url', 'address']
+        # Standard fields in ACM order
+        acm_field_order = ['author', 'title', 'journal', 'booktitle', 'publisher',
+                           'volume', 'number', 'series', 'edition', 'year', 'month',
+                           'pages', 'articleno', 'numpages', 'doi', 'url', 'address',
+                           'editor', 'organization', 'note']
 
-        # Add required fields first
-        for field in field_order:
+        # Process fields in specific order
+        for field in acm_field_order:
+            # Field exists in entry
             if field in fields:
-                # Special handling for journal names that should use string definitions
+                # Special handling for journal with string definitions
                 if field == 'journal' and self.use_string_definitions:
                     journal_name = fields['journal']
                     journal_key = None
 
-                    # Look for this journal in our collection
+                    # Try to find this journal in our collection
                     for j_key, j_info in self.journals.items():
-                        if j_info['full_name'] == journal_name or j_info['abbreviated'] == journal_name:
+                        if j_info['full_name'] == journal_name:
                             journal_key = j_key
                             break
 
-                    # Use string reference if found, otherwise use the full text
+                    # Use string reference if found, otherwise use full name
                     if journal_key:
                         formatted_fields += f"\n  journal = {journal_key},"
                     else:
                         formatted_fields += f"\n  journal = {{{journal_name}}},"
 
-                # Special handling for publishers that should use string definitions
+                # Special handling for publisher with string definitions
                 elif field == 'publisher' and self.use_string_definitions:
                     publisher_name = fields['publisher']
                     publisher_key = None
 
-                    # Look for this publisher in our collection
+                    # Try to find this publisher in our collection
                     for p_key, p_info in self.publishers.items():
                         if p_info['name'] == publisher_name:
                             publisher_key = p_key
                             break
 
-                    # Use string reference if found, otherwise use the full text
+                    # Use string reference if found, otherwise use full name
                     if publisher_key:
                         formatted_fields += f"\n  publisher = {publisher_key},"
                     else:
                         formatted_fields += f"\n  publisher = {{{publisher_name}}},"
-
-                # Special handling for month field
-                elif field == 'month':
-                    month_text = fields['month'].lower()
-                    month_abbrev = {
-                        'january': 'jan', 'february': 'feb', 'march': 'mar',
-                        'april': 'apr', 'may': 'may', 'june': 'jun',
-                        'july': 'jul', 'august': 'aug', 'september': 'sep',
-                        'october': 'oct', 'november': 'nov', 'december': 'dec'
-                    }
-
-                    # Find the month abbreviation if possible
-                    for full_month, abbrev in month_abbrev.items():
-                        if full_month in month_text:
-                            formatted_fields += f"\n  month = {abbrev},"
-                            break
-                    else:
-                        formatted_fields += f"\n  month = {{{month_text}}},"
-
-                # Special handling for pages - calculate numpages if needed
-                elif field == 'pages':
-                    pages_text = fields['pages']
-
-                    if '--' in pages_text or '-' in pages_text:
-                        formatted_fields += f"\n  pages = {{{pages_text}}},"
-
-                        # Try to calculate numpages for page ranges
-                        try:
-                            separator = '--' if '--' in pages_text else '-'
-                            start, end = pages_text.split(separator)
-                            start = int(start.strip())
-                            end = int(end.strip())
-                            numpages = end - start + 1
-                            formatted_fields += f"\n  numpages = {{{numpages}}},"
-                        except ValueError:
-                            # If we can't parse as integers, just continue
-                            pass
-                    else:
-                        # Handle single page as article number
-                        formatted_fields += f"\n  articleno = {{{pages_text}}},"
-                        formatted_fields += f"\n  numpages = {{1}},"
 
                 # Special handling for booktitle with string definitions
                 elif field == 'booktitle' and self.use_string_definitions:
                     booktitle_text = fields['booktitle']
                     booktitle_key = None
 
-                    # Look for this booktitle in our collection
+                    # Try to find this booktitle in our collection
                     for j_key, j_info in self.journals.items():
-                        if j_info['full_name'] == booktitle_text or j_info['abbreviated'] == booktitle_text:
+                        if j_info['full_name'] == booktitle_text:
                             booktitle_key = j_key
                             break
 
-                    # Use string reference if found, otherwise use the full text
+                    # Use string reference if found, otherwise use full name
                     if booktitle_key:
                         formatted_fields += f"\n  booktitle = {booktitle_key},"
                     else:
                         formatted_fields += f"\n  booktitle = {{{booktitle_text}}},"
 
-                # Standard handling for other fields
+                # Handle other fields normally
                 else:
                     formatted_fields += f"\n  {field} = {{{fields[field]}}},"
 
-            # Check if a required field is missing
+            # Field doesn't exist but is required
             elif field in required_fields:
+                # Empty string for missing field
+                formatted_fields += f'\n  {field} = "",'
                 missing_fields.append(field)
 
-        # Add any remaining fields not in our ordered list
-        for field, value in fields.items():
-            if field not in field_order:
-                formatted_fields += f"\n  {field} = {{{value}}},"
+            # Field doesn't exist and isn't required, but should be included as empty
+            else:
+                # Include all standard fields
+                formatted_fields += f'\n  {field} = "",'
 
-        # Log missing required fields if warnings are enabled
-        if missing_fields and not self.suppress_warnings:
-            title = fields.get('title', '')
-            print(
-                f"Warning: Missing required field(s) for BibTeX entry '{title}': {missing_fields}")
+        # Add any extra fields not in our standard order
+        for field, value in fields.items():
+            if field not in acm_field_order:
+                formatted_fields += f"\n  {field} = {{{value}}},"
 
         return formatted_fields
 
     def _collect_journal_info(self, record):
         """Collect journal information for generating BibTeX string definitions."""
+        # Get journal information from secondary title (most common location)
         secondary_title = record.find('.//titles/secondary-title')
         if secondary_title is not None:
             journal_text = self._extract_text_from_styled_element(
                 secondary_title)
             if journal_text and journal_text.strip():
                 journal_name = journal_text.strip()
-
-                # Generate an appropriate key for this journal
+                # Generate an appropriate key for this journal, removing special characters
                 journal_key = self._generate_acm_journal_key(journal_name)
 
                 # Store full name and categorize journal
-                if journal_key not in self.journals:
+                if journal_key not in self.journals and len(journal_name) > 3:
                     category = self._determine_journal_category(journal_name)
                     self.journals[journal_key] = {
                         'full_name': journal_name,
@@ -671,12 +636,34 @@ class XML:
                     }
                     self.journal_name_to_key[journal_name] = journal_key
 
-                # If the journal name looks like an abbreviation, store it as such
-                if "." in journal_name or all(len(word) <= 4 for word in journal_name.split()):
-                    existing_key = self.journal_name_to_key.get(
-                        journal_name, journal_key)
-                    if existing_key in self.journals and not self.journals[existing_key]['abbreviated']:
-                        self.journals[existing_key]['abbreviated'] = journal_name
+                    # Add debug output to see what's being collected
+                    if self.debug_mode:
+                        print(
+                            f"Added journal: {journal_key} = '{journal_name}' (Category: {category})")
+
+        # Also check for conference proceedings in the booktitle field
+        booktitle_elem = record.find('.//titles/tertiary-title')
+        if booktitle_elem is not None:
+            booktitle_text = self._extract_text_from_styled_element(
+                booktitle_elem)
+            if booktitle_text and booktitle_text.strip():
+                booktitle = booktitle_text.strip()
+                # For conference proceedings, use a different key prefix
+                booktitle_key = "Proc" + \
+                    self._generate_acm_journal_key(booktitle)
+
+                if booktitle_key not in self.journals and len(booktitle) > 3:
+                    # Conference proceedings are usually categorized as Conference
+                    self.journals[booktitle_key] = {
+                        'full_name': booktitle,
+                        'abbreviated': '',
+                        'category': 'Conference'
+                    }
+                    self.journal_name_to_key[booktitle] = booktitle_key
+
+                    if self.debug_mode:
+                        print(
+                            f"Added booktitle: {booktitle_key} = '{booktitle}' (Category: Conference)")
 
     def _collect_publisher_info(self, record):
         """Collect publisher information for generating BibTeX string definitions."""
@@ -687,187 +674,105 @@ class XML:
             if publisher_text and publisher_text.strip():
                 publisher_name = publisher_text.strip()
 
-                # Generate a key for this publisher
-                publisher_key = self._generate_acm_publisher_key(
-                    publisher_name)
-
-                # Store publisher info
-                if publisher_key not in self.publishers:
-                    category = self._determine_publisher_category(
+                # Only process publishers with substantial names
+                if len(publisher_name) > 3:
+                    # Generate a key for this publisher
+                    publisher_key = self._generate_acm_publisher_key(
                         publisher_name)
-                    self.publishers[publisher_key] = {
-                        'name': publisher_name,
-                        'category': category
-                    }
+
+                    # Store publisher info if not already stored
+                    if publisher_key not in self.publishers:
+                        category = self._determine_publisher_category(
+                            publisher_name)
+                        self.publishers[publisher_key] = {
+                            'name': publisher_name,
+                            'category': category
+                        }
+
+                        if self.debug_mode:
+                            print(
+                                f"Added publisher: {publisher_key} = '{publisher_name}' (Category: {category})")
 
     def _determine_publisher_category(self, publisher_name=None, journal_name=None, isbn=None):
         """
         Determine the category of the publisher based on available information.
-
-        Args:
-            publisher_name (str, optional): Name of the publisher if available
-            journal_name (str, optional): Name of the journal if available
-            isbn (str, optional): ISBN if available
-
-        Returns:
-            str: Category of the publisher (academic, commercial, society, or unknown)
         """
-        if publisher_name is None and journal_name is None:
+        if publisher_name is None:
             return "unknown"
 
-        # List of academic publishers
-        academic_publishers = ["Springer", "Elsevier", "IEEE", "ACM", "Wiley", "Oxford University Press",
-                               "Cambridge University Press", "Taylor & Francis", "SAGE", "Nature Publishing Group"]
+        publisher_lower = publisher_name.lower()
 
-        # List of academic journals or conferences
-        academic_journals = ["Transactions", "Proceedings", "Journal", "Conference", "IEEE", "ACM",
-                             "Frontiers in", "Advances in", "Medical Image", "Artificial Intelligence"]
+        # Check against common academic publishers
+        academic_publishers = ["springer", "elsevier", "ieee", "acm", "wiley", "oxford",
+                               "cambridge", "taylor & francis", "sage", "nature"]
 
-        # First check predefined categories
-        if publisher_name:
-            publisher_lower = publisher_name.lower()
+        # Check publisher categories from our dictionary
+        for category, keywords in self.publisher_categories.items():
+            for keyword in keywords:
+                if keyword.lower() in publisher_lower:
+                    return category
 
-            # Check against the publisher_categories dictionary
-            for category, keywords in self.publisher_categories.items():
-                for keyword in keywords:
-                    if keyword.lower() in publisher_lower:
-                        return category
-
-            # Check academic publisher list
-            for academic in academic_publishers:
-                if academic.lower() in publisher_lower:
-                    return "Academic"
-
-            # Check if it contains university
-            if "university" in publisher_lower or "press" in publisher_lower:
+        # Check for academic publishers
+        for publisher in academic_publishers:
+            if publisher in publisher_lower:
                 return "Academic"
 
-            # Check for commercial publishers markers
-            commercial_markers = ["inc", "ltd", "corp", "company", "limited"]
-            for marker in commercial_markers:
-                if marker in publisher_lower:
-                    return "Commercial"
+        # Check for universities/academic institutions
+        if "university" in publisher_lower or "institute" in publisher_lower:
+            return "Academic"
 
-        # Check journal name if publisher not definitive
-        if journal_name:
-            journal_lower = journal_name.lower()
+        # Check for society publishers
+        if "society" in publisher_lower or "association" in publisher_lower:
+            return "Society"
 
-            # Check academic journal patterns
-            for academic in academic_journals:
-                if academic.lower() in journal_lower:
-                    return "Academic"
-
-            # Check for society journals
-            if "ieee" in journal_lower or "acm" in journal_lower:
-                return "Society"
-
-        # Default to commercial if we have a publisher but couldn't categorize
-        if publisher_name:
-            return "Commercial"
-
-        return "unknown"
-
-    def _generate_acm_journal_key(self, journal_name):
-        """Generate a key for a journal following ACM conventions."""
-        # Handle common special cases
-        if "ACM" in journal_name:
-            if "Transactions" in journal_name:
-                return "TACM"
-            if "Communications" in journal_name:
-                return "CACM"
-            if "Journal" in journal_name:
-                return "JACM"
-
-        # IEEE journals
-        if "IEEE" in journal_name:
-            if "Transactions" in journal_name:
-                topic = re.search(r'Transactions on\s+(\w+)', journal_name)
-                if topic:
-                    return f"IEEETrans{topic.group(1)}"
-                return "IEEETransComp"
-            if "Proceedings" in journal_name:
-                return "ProcIEEE"
-
-        # For other journals, create an acronym
-        # Filter out common words
-        common_words = {'of', 'the', 'and', 'on', 'in', 'for', 'to', 'with'}
-        words = [w for w in re.findall(
-            r'\b[A-Za-z]+\b', journal_name) if w.lower() not in common_words]
-
-        # For short journal names, just use the name with spaces removed
-        if len(words) <= 2:
-            return journal_name.replace(' ', '')
-
-        # For longer names, create an acronym from first letters of each word
-        return ''.join(word[0].upper() for word in words if word)
-
-    def _generate_acm_publisher_key(self, publisher_name):
-        """Generate a key for a publisher following ACM conventions."""
-        # Handle common publisher prefixes and suffixes
-        publisher_name = publisher_name.replace("Press", "").replace(
-            "Publishing", "").replace("Inc.", "").strip()
-
-        # Handle common special cases
-        if "ACM" in publisher_name:
-            return "ACMPress"
-        if "Addison" in publisher_name and "Wesley" in publisher_name:
-            return "AddisonWesley"
-        if "Springer" in publisher_name:
-            return "Springer"
-        if "IEEE" in publisher_name:
-            return "IEEE"
-        if "Wiley" in publisher_name:
-            return "JohnWileySons"
-        if "Cambridge" in publisher_name and "University" in publisher_name:
-            return "CambridgePress"
-        if "Oxford" in publisher_name and "University" in publisher_name:
-            return "OxfordPress"
-
-        # For other publishers, create a camelCase key
-        return re.sub(r'[^\w]', '', publisher_name)
+        # Default to commercial for unknown publishers
+        return "Commercial"
 
     def _generate_string_definitions(self):
-        """Generate BibTeX string definitions in ACM style."""
+        """Generate BibTeX string definitions in ACM style with more complete coverage."""
         if not self.journals and not self.publishers:
             return ""
 
         output = ""
 
-        # Group journals by category
-        journal_categories = {}
-        for j_key, j_info in self.journals.items():
-            category = j_info.get('category', 'Other')
-            if category not in journal_categories:
-                journal_categories[category] = []
-            journal_categories[category].append((j_key, j_info))
-
-        # Add journal string definitions
+        # Add journals section if we have journals
         if self.journals:
             output += "% Journals\n\n"
             output += "% First the Full Name is given, then the abbreviation used in the AMS Math\n"
             output += "% Reviews, with an indication if it could not be found there.\n"
             output += "% Note the 2nd overwrites the 1st, so swap them if you want the full name.\n\n"
 
-            # Priority order for journal categories
-            category_order = ['ACM', 'IEEE', 'SIAM', 'AMS',
+            # Group journals by category
+            journal_categories = {}
+            for j_key, j_info in self.journals.items():
+                category = j_info.get('category', 'Other')
+                if category not in journal_categories:
+                    journal_categories[category] = []
+                journal_categories[category].append((j_key, j_info))
+
+            # Define category display order
+            category_order = ['ACM', 'IEEE', 'Springer', 'Elsevier',
                               'Conference', 'Journal', 'Magazine', 'Other']
 
-            # Process categories in priority order
+            # First display categories in our priority order
             for category in category_order:
                 if category in journal_categories and journal_categories[category]:
                     output += f" %{{{category}}}\n"
 
                     # Sort journals by key within category
                     for j_key, j_info in sorted(journal_categories[category], key=lambda x: x[0]):
-                        # Add full name if available
                         if j_info.get('full_name'):
                             output += f" @String{{{j_key} = \"{j_info['full_name']}\" }}\n"
-                        # Add abbreviated name if available and different
+                        # Add abbreviated version if available and different
                         if j_info.get('abbreviated') and j_info.get('abbreviated') != j_info.get('full_name'):
                             output += f" @String{{{j_key} = \"{j_info['abbreviated']}\" }}\n"
 
-            # Process any remaining categories
-            for category in sorted(set(journal_categories.keys()) - set(category_order)):
+                    output += "\n"  # Add spacing between categories
+
+            # Then add any remaining categories not in our priority list
+            remaining_categories = set(
+                journal_categories.keys()) - set(category_order)
+            for category in sorted(remaining_categories):
                 if journal_categories[category]:
                     output += f" %{{{category}}}\n"
                     for j_key, j_info in sorted(journal_categories[category], key=lambda x: x[0]):
@@ -875,26 +780,40 @@ class XML:
                             output += f" @String{{{j_key} = \"{j_info['full_name']}\" }}\n"
                         if j_info.get('abbreviated') and j_info.get('abbreviated') != j_info.get('full_name'):
                             output += f" @String{{{j_key} = \"{j_info['abbreviated']}\" }}\n"
+                    output += "\n"
 
-        # Group publishers by category
-        publisher_categories = {}
-        for p_key, p_info in self.publishers.items():
-            category = p_info.get('category', 'Other')
-            if category not in publisher_categories:
-                publisher_categories[category] = []
-            publisher_categories[category].append((p_key, p_info))
-
-        # Add publisher string definitions
+        # Add publishers section if we have publishers
         if self.publishers:
-            output += "\n% Publishers % ================================================= |\n\n"
+            output += "% Publishers % ================================================= |\n\n"
 
-            # Process publisher categories
-            for category in sorted(publisher_categories.keys()):
-                if category != "Other":
+            # Group publishers by category
+            publisher_categories = {}
+            for p_key, p_info in self.publishers.items():
+                category = p_info.get('category', 'Other')
+                if category not in publisher_categories:
+                    publisher_categories[category] = []
+                publisher_categories[category].append((p_key, p_info))
+
+            # Define publisher category display order
+            pub_category_order = ['Academic', 'Society',
+                                  'ACM', 'IEEE', 'Commercial', 'Other']
+
+            # Display publishers by category
+            for category in pub_category_order:
+                if category in publisher_categories and publisher_categories[category]:
                     output += f" %{{{category}}}\n"
+                    for p_key, p_info in sorted(publisher_categories[category], key=lambda x: x[0]):
+                        output += f" @String{{{p_key} = \"{p_info['name']}\" }}\n"
+                    output += "\n"
 
-                # Add publishers in this category
-                for p_key, p_info in sorted(publisher_categories[category], key=lambda x: x[0]):
-                    output += f" @String{{{p_key} = \"{p_info['name']}\" }}\n"
+            # Add any remaining categories
+            remaining_pub_cats = set(
+                publisher_categories.keys()) - set(pub_category_order)
+            for category in sorted(remaining_pub_cats):
+                if publisher_categories[category]:
+                    output += f" %{{{category}}}\n"
+                    for p_key, p_info in sorted(publisher_categories[category], key=lambda x: x[0]):
+                        output += f" @String{{{p_key} = \"{p_info['name']}\" }}\n"
+                    output += "\n"
 
         return output

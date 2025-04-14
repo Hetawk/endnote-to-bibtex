@@ -19,6 +19,8 @@ When working with Microsoft Word, EndNote is a powerful reference management too
 - **Flexible Saving Options**: Save directly to a file or to a selected directory
 - **Warning Suppression**: Option to suppress warnings about missing fields
 - **Detailed Logging**: Comprehensive logging for troubleshooting and tracking conversions
+- **Dynamic BibTeX String Generation**: Automatically identifies and categorizes journals and publishers for optimal BibTeX formatting
+- **Smart Publication Recognition**: Identifies and properly formats conference proceedings, journals, and other publication types
 
 ## Installation
 
@@ -76,6 +78,7 @@ When working with Microsoft Word, EndNote is a powerful reference management too
 - **Suppress missing field warnings**: Ignores warnings for non-critical missing fields
 - **Extract styled text**: Extracts and preserves text style information from EndNote XML
 - **Default Save Directory**: Set a preferred location for saving BibTeX files
+- **BibTeX Output Style**: Choose between standard BibTeX format or enhanced ACM-style format with automatic string definitions
 
 ## Technical Details
 
@@ -88,6 +91,14 @@ The application uses a specialized XML parser to handle EndNote's XML format and
 - DOI, URL, and other identifiers
 - Abstract and keywords
 - Publisher information
+
+The BibTeX String generation system automatically:
+
+- Identifies journal names and abbreviations from your data
+- Categorizes publications based on naming patterns and content
+- Groups similar journals and publishers together
+- Generates optimal BibTeX String definitions for consistent references
+- Handles both known and new publication venues without manual configuration
 
 ## Contributing
 
