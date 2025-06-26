@@ -1,253 +1,332 @@
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-Conversion completed successfully!
-[2025-03-24 20:53:05] INFO: Application started
-[2025-03-24 20:54:19] WARNING: Conversion attempted without selecting a file
-[2025-03-24 20:54:32] INFO: Selected file: /Users/hetawk/Downloads/steve_ref.xml
-[2025-03-24 20:54:39] INFO: Starting conversion of file: /Users/hetawk/Downloads/steve_ref.xml
-[2025-03-24 20:54:39] INFO: Converting using XML converter
-[2025-03-24 20:54:39] SUCCESS: Conversion completed successfully. File: steve_ref.xml, Method: XML to BibTeX, Entries: 137
-[2025-03-24 20:59:26] INFO: Saving file as: /Users/hetawk/Downloads/mybib.bib
-[2025-03-24 20:59:26] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/mybib.bib
-[2025-03-24 20:59:30] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-03-24 21:04:26] INFO: Application started
-[2025-03-24 21:14:09] INFO: Application started
-[2025-03-24 21:14:58] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
-[2025-03-24 21:15:03] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
-[2025-03-24 21:15:03] INFO: Converting using TXT converter (user selected)
-[2025-03-24 21:15:03] SUCCESS: Conversion completed successfully. File: conversion_log.txt, Method: Text to BibTeX (user selected), Entries: 1
-[2025-03-24 21:16:01] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 21:16:01] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 21:16:03] INFO: User chose to overwrite existing file
-[2025-03-24 21:16:03] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 21:16:06] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-03-24 21:22:54] INFO: Application started
-[2025-03-24 21:23:25] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
-[2025-03-24 21:23:45] WARNING: The selected file appears to be a log file, not a reference file.
-[2025-03-24 21:48:00] INFO: Application started
-[2025-03-24 21:48:18] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/conversion_log.txt
-[2025-03-24 21:48:26] WARNING: The selected file appears to be a log file, not a reference file.
-[2025-03-24 22:01:21] INFO: Application started
-[2025-03-24 22:04:15] INFO: Selected file: /Users/hetawk/Downloads/dfcgb.xml
-[2025-03-24 22:04:15] INFO: Auto-selected XML conversion type based on file extension
-[2025-03-24 22:04:21] INFO: Starting conversion of file: /Users/hetawk/Downloads/dfcgb.xml
-[2025-03-24 22:04:21] INFO: Selected conversion type: 1
-[2025-03-24 22:04:21] INFO: File extension: .xml
-[2025-03-24 22:04:21] INFO: First 100 chars of file: <?xml version="1.0" encoding="UTF-8" ?><xml><records><record><database name="EndNote_Library.enl" pa
-[2025-03-24 22:04:21] INFO: Converting using XML converter (user selected)
-[2025-03-24 22:04:21] SUCCESS: Conversion completed successfully. File: dfcgb.xml, Method: XML to BibTeX (user selected), Entries: 137
-[2025-03-24 22:04:31] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 22:04:31] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 22:04:33] INFO: User chose to overwrite existing file
-[2025-03-24 22:04:33] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
-[2025-03-24 22:04:35] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-03-24 22:19:21] INFO: Application started
-[2025-03-24 22:19:56] INFO: Selected file: /Users/hetawk/Downloads/dfcgb.xml
-[2025-03-24 22:56:07] INFO: Application started
-[2025-04-08 14:32:54] INFO: Application started
-[2025-04-08 14:40:30] INFO: Application started
-[2025-04-08 14:44:04] INFO: Selected file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 14:44:09] INFO: Starting conversion of file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 14:44:09] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 14:44:09] INFO: Using ACM BibTeX style
-[2025-04-08 14:44:09] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 101
-[2025-04-08 14:44:44] INFO: Saving file as: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1/meddef1.0.bib
-[2025-04-08 14:44:44] SUCCESS: File successfully saved to: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1/meddef1.0.bib
-[2025-04-08 14:44:46] INFO: Opened directory: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1
-[2025-04-08 15:00:45] INFO: Application started
-[2025-04-08 15:01:03] INFO: Selected file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 15:01:14] INFO: Starting conversion of file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 15:01:14] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:01:14] INFO: Using ACM BibTeX style
-[2025-04-08 15:01:14] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 85
-[2025-04-08 15:01:53] INFO: Saving file as: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1/meddef1.0.bib
-[2025-04-08 15:01:53] SUCCESS: File successfully saved to: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1/meddef1.0.bib
-[2025-04-08 15:01:56] INFO: Opened directory: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/ACMM/acm_paper/meddef1
-[2025-04-08 15:11:47] INFO: Application started
-[2025-04-08 15:12:12] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:12:22] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:12:22] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:12:22] INFO: Using ACM BibTeX style
-[2025-04-08 15:12:22] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 84
-[2025-04-08 15:12:34] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:12:34] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:12:36] INFO: User chose to overwrite existing file
-[2025-04-08 15:12:36] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:12:38] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 15:14:30] INFO: Application started
-[2025-04-08 15:14:37] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:14:42] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:14:42] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:14:42] INFO: Using ACM BibTeX style
-[2025-04-08 15:14:42] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 84
-[2025-04-08 15:15:06] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 15:15:06] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 15:15:09] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 15:38:41] INFO: Application started
-[2025-04-08 15:38:49] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:39:08] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:39:08] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:39:08] INFO: Using ACM BibTeX style
-[2025-04-08 15:39:08] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 83
-[2025-04-08 15:39:21] INFO: Directory selection canceled by user
-[2025-04-08 15:39:27] INFO: Directory selection canceled by user
-[2025-04-08 15:39:37] INFO: Selected file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 15:39:40] INFO: Starting conversion of file: /Users/hetawk/Downloads/meddef1.0.xml
-[2025-04-08 15:39:40] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:39:40] INFO: Using ACM BibTeX style
-[2025-04-08 15:39:40] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 83
-[2025-04-08 15:39:51] INFO: Quick saving to: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:39:51] WARNING: File already exists: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:39:58] INFO: User chose to overwrite existing file
-[2025-04-08 15:39:58] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/converted.bib
-[2025-04-08 15:40:01] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 15:40:25] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 15:40:25] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 15:40:27] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 15:48:52] INFO: Application started
-[2025-04-08 15:49:02] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:49:41] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:49:41] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:49:41] INFO: Using ACM BibTeX style
-[2025-04-08 15:49:41] ERROR: Error during conversion: 'XML' object has no attribute '_collect_journal_info'
-[2025-04-08 15:49:41] ERROR: Exception during conversion of /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml: 'XML' object has no attribute '_collect_journal_info'
-[2025-04-08 15:49:41] ERROR: Traceback: Traceback (most recent call last):
-  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/main.py", line 524, in convert_file
-    bib_entry = self.xml_converter.convert_to_bibtex(file_data)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/acm_xml_converter.py", line 142, in convert_to_bibtex
-    self._collect_journal_info(record)
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'XML' object has no attribute '_collect_journal_info'
+[2025-06-26 16:38:18] INFO: Application started
+[2025-06-26 16:40:52] INFO: Application started
+[2025-06-26 16:55:41] INFO: Starting MainApp initialization
+[2025-06-26 16:55:41] INFO: Window title set
+[2025-06-26 16:55:41] INFO: Window geometry set
+[2025-06-26 16:55:41] INFO: Window style set
+[2025-06-26 16:55:41] INFO: Creating XML converter...
+[2025-06-26 16:55:41] INFO: XML converter created successfully
+[2025-06-26 16:55:41] INFO: Variables initialized
+[2025-06-26 16:55:41] INFO: Application started
+[2025-06-26 16:55:41] INFO: About to call init_ui()
+[2025-06-26 16:55:41] INFO: Starting UI initialization
+[2025-06-26 16:55:41] INFO: Creating central widget
+[2025-06-26 16:55:41] INFO: Creating main layout
+[2025-06-26 16:55:41] INFO: Creating tab widget
+[2025-06-26 16:55:41] INFO: Tab widget styled
+[2025-06-26 16:55:41] INFO: Tab widget added to layout
+[2025-06-26 16:55:41] INFO: Creating conversion tab
+[2025-06-26 16:55:41] INFO: Starting conversion tab creation
+[2025-06-26 16:55:41] INFO: Conversion tab widget created
+[2025-06-26 16:55:41] INFO: API enhancement checkbox created
+[2025-06-26 16:55:41] INFO: About to call get_api_status()
+[2025-06-26 16:55:41] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 16:55:41] INFO: API status configuration completed
+[2025-06-26 16:55:41] INFO: API enhancement checkbox added to layout
+[2025-06-26 16:55:41] INFO: About to update API status label
+[2025-06-26 16:55:41] INFO: API status label updated
+[2025-06-26 16:55:41] INFO: Conversion tab created
+[2025-06-26 16:55:41] INFO: Creating log tab
+[2025-06-26 16:55:41] INFO: Log tab created
+[2025-06-26 16:55:41] INFO: Creating settings tab
+[2025-06-26 16:55:41] INFO: Settings tab created
+[2025-06-26 16:55:41] INFO: MainApp initialization completed successfully
+[2025-06-26 17:02:13] INFO: Starting MainApp initialization
+[2025-06-26 17:02:13] INFO: Window title set
+[2025-06-26 17:02:13] INFO: Window geometry set
+[2025-06-26 17:02:13] INFO: Window style set
+[2025-06-26 17:02:13] INFO: Creating XML converter...
+[2025-06-26 17:02:13] INFO: XML converter created successfully
+[2025-06-26 17:02:13] INFO: Variables initialized
+[2025-06-26 17:02:13] INFO: Application started
+[2025-06-26 17:02:13] INFO: About to call init_ui()
+[2025-06-26 17:02:13] INFO: Starting UI initialization
+[2025-06-26 17:02:13] INFO: Creating central widget
+[2025-06-26 17:02:13] INFO: Creating main layout
+[2025-06-26 17:02:13] INFO: Creating tab widget
+[2025-06-26 17:02:13] INFO: Tab widget styled
+[2025-06-26 17:02:13] INFO: Tab widget added to layout
+[2025-06-26 17:02:13] INFO: Creating conversion tab
+[2025-06-26 17:02:13] INFO: Starting conversion tab creation
+[2025-06-26 17:02:13] INFO: Conversion tab widget created
+[2025-06-26 17:02:14] INFO: API enhancement checkbox created
+[2025-06-26 17:02:14] INFO: About to call get_api_status()
+[2025-06-26 17:02:14] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:02:14] INFO: API status configuration completed
+[2025-06-26 17:02:14] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:02:14] INFO: About to update API status label
+[2025-06-26 17:02:14] INFO: API status label updated
+[2025-06-26 17:02:14] INFO: Conversion tab created
+[2025-06-26 17:02:14] INFO: Creating log tab
+[2025-06-26 17:02:14] INFO: Log tab created
+[2025-06-26 17:02:14] INFO: Creating settings tab
+[2025-06-26 17:02:14] INFO: Settings tab created
+[2025-06-26 17:02:14] INFO: MainApp initialization completed successfully
+[2025-06-26 17:02:46] INFO: Starting MainApp initialization
+[2025-06-26 17:02:46] INFO: Window title set
+[2025-06-26 17:02:46] INFO: Window geometry set
+[2025-06-26 17:02:46] INFO: Window style set
+[2025-06-26 17:02:46] INFO: Creating XML converter...
+[2025-06-26 17:02:46] INFO: XML converter created successfully
+[2025-06-26 17:02:46] INFO: Variables initialized
+[2025-06-26 17:02:46] INFO: Application started
+[2025-06-26 17:02:46] INFO: About to call init_ui()
+[2025-06-26 17:02:46] INFO: Starting UI initialization
+[2025-06-26 17:02:46] INFO: Creating central widget
+[2025-06-26 17:02:46] INFO: Creating main layout
+[2025-06-26 17:02:46] INFO: Creating tab widget
+[2025-06-26 17:02:46] INFO: Tab widget styled
+[2025-06-26 17:02:46] INFO: Tab widget added to layout
+[2025-06-26 17:02:46] INFO: Creating conversion tab
+[2025-06-26 17:02:46] INFO: Starting conversion tab creation
+[2025-06-26 17:02:46] INFO: Conversion tab widget created
+[2025-06-26 17:02:46] INFO: API enhancement checkbox created
+[2025-06-26 17:02:46] INFO: About to call get_api_status()
+[2025-06-26 17:02:46] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:02:46] INFO: API status configuration completed
+[2025-06-26 17:02:46] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:02:46] INFO: About to update API status label
+[2025-06-26 17:02:46] INFO: API status label updated
+[2025-06-26 17:02:46] INFO: Conversion tab created
+[2025-06-26 17:02:46] INFO: Creating log tab
+[2025-06-26 17:02:46] INFO: Log tab created
+[2025-06-26 17:02:46] INFO: Creating settings tab
+[2025-06-26 17:02:46] INFO: Settings tab created
+[2025-06-26 17:02:46] INFO: MainApp initialization completed successfully
+[2025-06-26 17:04:58] INFO: Starting MainApp initialization
+[2025-06-26 17:04:58] INFO: Window title set
+[2025-06-26 17:04:58] INFO: Window geometry set
+[2025-06-26 17:04:58] INFO: Window style set
+[2025-06-26 17:04:58] INFO: Creating XML converter...
+[2025-06-26 17:04:58] INFO: XML converter created successfully
+[2025-06-26 17:04:58] INFO: Variables initialized
+[2025-06-26 17:04:58] INFO: Application started
+[2025-06-26 17:04:58] INFO: About to call init_ui()
+[2025-06-26 17:04:58] INFO: Starting UI initialization
+[2025-06-26 17:04:58] INFO: Creating central widget
+[2025-06-26 17:04:58] INFO: Creating main layout
+[2025-06-26 17:04:58] INFO: Creating tab widget
+[2025-06-26 17:04:58] INFO: Tab widget styled
+[2025-06-26 17:04:58] INFO: Tab widget added to layout
+[2025-06-26 17:04:58] INFO: Creating conversion tab
+[2025-06-26 17:04:58] INFO: Starting conversion tab creation
+[2025-06-26 17:04:58] INFO: Conversion tab widget created
+[2025-06-26 17:04:59] INFO: API enhancement checkbox created
+[2025-06-26 17:04:59] INFO: About to call get_api_status()
+[2025-06-26 17:04:59] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:04:59] INFO: API status configuration completed
+[2025-06-26 17:04:59] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:04:59] INFO: About to update API status label
+[2025-06-26 17:04:59] INFO: API status label updated
+[2025-06-26 17:04:59] INFO: Conversion tab created
+[2025-06-26 17:04:59] INFO: Creating log tab
+[2025-06-26 17:04:59] INFO: Log tab created
+[2025-06-26 17:04:59] INFO: Creating settings tab
+[2025-06-26 17:04:59] INFO: Settings tab created
+[2025-06-26 17:04:59] INFO: MainApp initialization completed successfully
+[2025-06-26 17:05:08] INFO: Starting file browser
+[2025-06-26 17:05:53] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:05:57] INFO: Starting conversion of file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:05:57] INFO: API enhancement enabled for this conversion
+[2025-06-26 17:05:57] INFO: Converting EndNote XML to BibTeX
+[2025-06-26 17:05:57] INFO: Using ACM BibTeX style
+[2025-06-26 17:20:40] INFO: Starting MainApp initialization
+[2025-06-26 17:20:40] INFO: Window title set
+[2025-06-26 17:20:40] INFO: Window geometry set
+[2025-06-26 17:20:40] INFO: Window style set
+[2025-06-26 17:20:40] INFO: Creating XML converter...
+[2025-06-26 17:20:40] INFO: XML converter created successfully
+[2025-06-26 17:20:40] INFO: Variables initialized
+[2025-06-26 17:20:40] INFO: Worker threads initialized
+[2025-06-26 17:20:40] INFO: Application started
+[2025-06-26 17:20:40] INFO: About to call init_ui()
+[2025-06-26 17:20:40] INFO: Starting UI initialization
+[2025-06-26 17:20:40] INFO: Creating central widget
+[2025-06-26 17:20:40] INFO: Creating main layout
+[2025-06-26 17:20:40] INFO: Creating tab widget
+[2025-06-26 17:20:40] INFO: Tab widget styled
+[2025-06-26 17:20:40] INFO: Tab widget added to layout
+[2025-06-26 17:20:40] INFO: Creating conversion tab
+[2025-06-26 17:20:40] INFO: Starting conversion tab creation
+[2025-06-26 17:20:40] INFO: Conversion tab widget created
+[2025-06-26 17:20:40] INFO: API enhancement checkbox created
+[2025-06-26 17:20:40] INFO: About to call get_api_status()
+[2025-06-26 17:20:40] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:20:40] INFO: API status configuration completed
+[2025-06-26 17:20:40] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:20:40] INFO: About to update API status label
+[2025-06-26 17:20:40] INFO: API status label updated
+[2025-06-26 17:20:40] INFO: Conversion tab created
+[2025-06-26 17:20:40] INFO: Creating log tab
+[2025-06-26 17:20:40] INFO: Log tab created
+[2025-06-26 17:20:40] INFO: Creating settings tab
+[2025-06-26 17:20:40] INFO: Settings tab created
+[2025-06-26 17:20:40] INFO: MainApp initialization completed successfully
+[2025-06-26 17:20:55] INFO: Starting file browser
+[2025-06-26 17:21:17] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:21:26] ERROR: Error starting conversion: 'MainApp' object has no attribute 'log'
+[2025-06-26 17:21:26] ERROR: Exception starting conversion of /Users/hetawk/Downloads/gerald_endnote.xml: 'MainApp' object has no attribute 'log'
+[2025-06-26 17:21:26] ERROR: Traceback: Traceback (most recent call last):
+  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/main.py", line 774, in convert_file
+    self.log
+AttributeError: 'MainApp' object has no attribute 'log'
 
-[2025-04-08 15:52:09] INFO: Application started
-[2025-04-08 15:52:57] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:53:00] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:53:00] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:53:00] INFO: Using ACM BibTeX style
-[2025-04-08 15:53:00] ERROR: Conversion failed: No BibTeX entries generated
-[2025-04-08 15:53:10] INFO: User viewed log file
-[2025-04-08 15:53:26] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:53:26] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:53:26] INFO: Using ACM BibTeX style
-[2025-04-08 15:53:26] ERROR: Conversion failed: No BibTeX entries generated
-[2025-04-08 15:56:26] INFO: Application started
-[2025-04-08 15:56:35] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:57:03] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:57:03] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:57:03] INFO: Using ACM BibTeX style
-[2025-04-08 15:57:03] ERROR: Conversion failed: No BibTeX entries generated
-[2025-04-08 15:57:13] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 15:57:13] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 15:57:13] INFO: Using ACM BibTeX style
-[2025-04-08 15:57:13] ERROR: Conversion failed: No BibTeX entries generated
-[2025-04-08 16:06:11] INFO: Application started
-[2025-04-08 16:06:19] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:06:36] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:06:36] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 16:06:36] INFO: Using ACM BibTeX style
-[2025-04-08 16:06:36] ERROR: Error during conversion: cannot access local variable 'title_info' where it is not associated with a value
-[2025-04-08 16:06:36] ERROR: Exception during conversion of /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml: cannot access local variable 'title_info' where it is not associated with a value
-[2025-04-08 16:06:36] ERROR: Traceback: Traceback (most recent call last):
-  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/acm_xml_converter.py", line 217, in convert_to_bibtex
-    title_info = self._extract_text_from_styled_element(
-                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-AttributeError: 'XML' object has no attribute '_extract_text_from_styled_element'
+[2025-06-26 17:21:34] ERROR: Error starting conversion: 'MainApp' object has no attribute 'log'
+[2025-06-26 17:21:34] ERROR: Exception starting conversion of /Users/hetawk/Downloads/gerald_endnote.xml: 'MainApp' object has no attribute 'log'
+[2025-06-26 17:21:34] ERROR: Traceback: Traceback (most recent call last):
+  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/main.py", line 774, in convert_file
+    self.log
+AttributeError: 'MainApp' object has no attribute 'log'
 
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/main.py", line 524, in convert_file
-    bib_entry = self.xml_converter.convert_to_bibtex(file_data)
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/hetawk/Documents/Coding_Env/py/ref_convertor/acm_xml_converter.py", line 286, in convert_to_bibtex
-    error_msg = f"Error processing record {index + 1} ({title_info}): {str(e)}"
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnboundLocalError: cannot access local variable 'title_info' where it is not associated with a value
-
-[2025-04-08 16:08:38] INFO: Application started
-[2025-04-08 16:08:52] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:08:53] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:08:53] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 16:08:53] INFO: Using ACM BibTeX style
-[2025-04-08 16:08:53] ERROR: Conversion failed: No BibTeX entries generated
-[2025-04-08 16:13:07] INFO: Application started
-[2025-04-08 16:13:22] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:13:23] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:13:23] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 16:13:23] INFO: Using ACM BibTeX style
-[2025-04-08 16:13:23] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 71
-[2025-04-08 16:13:39] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:13:39] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:13:40] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 16:22:54] INFO: Application started
-[2025-04-08 16:23:21] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:23:29] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:23:29] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 16:23:29] INFO: Using ACM BibTeX style
-[2025-04-08 16:23:29] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 71
-[2025-04-08 16:23:41] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:23:41] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:23:44] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 16:28:31] INFO: Application started
-[2025-04-08 16:28:46] WARNING: Conversion attempted without selecting a file
-[2025-04-08 16:28:52] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:28:54] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 16:28:54] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 16:28:54] INFO: Using ACM BibTeX style
-[2025-04-08 16:28:54] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 71
-[2025-04-08 16:29:22] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:29:22] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 16:29:24] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 18:03:58] INFO: Application started
-[2025-04-08 18:04:06] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 18:04:22] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 18:04:22] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 18:04:22] INFO: Using ACM BibTeX style
-[2025-04-08 18:04:22] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 59
-[2025-04-08 18:04:37] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 18:04:37] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 18:04:39] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 21:36:58] INFO: Application started
-[2025-04-08 21:37:06] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 21:37:23] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 21:37:23] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 21:37:23] INFO: Using ACM BibTeX style
-[2025-04-08 21:37:23] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 59
-[2025-04-08 21:37:47] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 21:37:47] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 21:37:49] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 21:59:58] INFO: Application started
-[2025-04-08 22:00:11] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 22:00:18] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 22:00:18] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 22:00:18] INFO: Using ACM BibTeX style
-[2025-04-08 22:00:18] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 74
-[2025-04-08 22:00:30] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 22:00:30] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 22:00:32] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-08 22:07:49] INFO: Application started
-[2025-04-08 22:07:57] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 22:08:13] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-08 22:08:13] INFO: Converting EndNote XML to BibTeX
-[2025-04-08 22:08:13] INFO: Using ACM BibTeX style
-[2025-04-08 22:08:13] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 59
-[2025-04-08 22:08:28] INFO: Saving file as: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 22:08:28] SUCCESS: File successfully saved to: /Users/hetawk/Downloads/meddef.bib
-[2025-04-08 22:14:21] INFO: Opened directory: /Users/hetawk/Downloads
-[2025-04-13 22:07:42] INFO: Application started
-[2025-04-13 22:07:56] INFO: Selected file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-13 22:08:06] INFO: Starting conversion of file: /Users/hetawk/Documents/Coding_Env/py/ref_convertor/meddef1.0.xml
-[2025-04-13 22:08:06] INFO: Converting EndNote XML to BibTeX
-[2025-04-13 22:08:06] INFO: Using ACM BibTeX style
-[2025-04-13 22:08:06] SUCCESS: Conversion completed successfully. File: meddef1.0.xml, Method: EndNote XML to BibTeX (ACM Style), Entries: 59
-[2025-04-13 22:08:35] INFO: Saving file as: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/IEEE_TMI/2/LaTeX/converted.bib
-[2025-04-13 22:08:35] SUCCESS: File successfully saved to: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/IEEE_TMI/2/LaTeX/converted.bib
-[2025-04-13 22:08:37] INFO: Opened directory: /Users/hetawk/Documents/Classes/2024-2025-Year2/Paper/IEEE_TMI/2/LaTeX
+[2025-06-26 17:24:07] INFO: Application closing - threads cleaned up
+[2025-06-26 17:24:28] INFO: Starting MainApp initialization
+[2025-06-26 17:24:28] INFO: Window title set
+[2025-06-26 17:24:28] INFO: Window geometry set
+[2025-06-26 17:24:28] INFO: Window style set
+[2025-06-26 17:24:28] INFO: Creating XML converter...
+[2025-06-26 17:24:28] INFO: XML converter created successfully
+[2025-06-26 17:24:28] INFO: Variables initialized
+[2025-06-26 17:24:28] INFO: Worker threads initialized
+[2025-06-26 17:24:28] INFO: Application started
+[2025-06-26 17:24:28] INFO: About to call init_ui()
+[2025-06-26 17:24:28] INFO: Starting UI initialization
+[2025-06-26 17:24:28] INFO: Creating central widget
+[2025-06-26 17:24:28] INFO: Creating main layout
+[2025-06-26 17:24:28] INFO: Creating tab widget
+[2025-06-26 17:24:28] INFO: Tab widget styled
+[2025-06-26 17:24:28] INFO: Tab widget added to layout
+[2025-06-26 17:24:28] INFO: Creating conversion tab
+[2025-06-26 17:24:28] INFO: Starting conversion tab creation
+[2025-06-26 17:24:28] INFO: Conversion tab widget created
+[2025-06-26 17:24:28] INFO: API enhancement checkbox created
+[2025-06-26 17:24:28] INFO: About to call get_api_status()
+[2025-06-26 17:24:28] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:24:28] INFO: API status configuration completed
+[2025-06-26 17:24:28] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:24:28] INFO: About to update API status label
+[2025-06-26 17:24:28] INFO: API status label updated
+[2025-06-26 17:24:28] INFO: Conversion tab created
+[2025-06-26 17:24:28] INFO: Creating log tab
+[2025-06-26 17:24:28] INFO: Log tab created
+[2025-06-26 17:24:28] INFO: Creating settings tab
+[2025-06-26 17:24:28] INFO: Settings tab created
+[2025-06-26 17:24:28] INFO: MainApp initialization completed successfully
+[2025-06-26 17:24:41] INFO: Starting file browser
+[2025-06-26 17:24:52] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:24:55] INFO: Starting conversion of file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:32:26] INFO: Starting MainApp initialization
+[2025-06-26 17:32:26] INFO: Window title set
+[2025-06-26 17:32:26] INFO: Window geometry set
+[2025-06-26 17:32:26] INFO: Window style set
+[2025-06-26 17:32:26] INFO: Creating XML converter...
+[2025-06-26 17:32:26] INFO: XML converter created successfully
+[2025-06-26 17:32:26] INFO: Variables initialized
+[2025-06-26 17:32:26] INFO: Worker threads initialized
+[2025-06-26 17:32:26] INFO: Application started
+[2025-06-26 17:32:26] INFO: About to call init_ui()
+[2025-06-26 17:32:26] INFO: Starting UI initialization
+[2025-06-26 17:32:26] INFO: Creating central widget
+[2025-06-26 17:32:26] INFO: Creating main layout
+[2025-06-26 17:32:26] INFO: Creating tab widget
+[2025-06-26 17:32:26] INFO: Tab widget styled
+[2025-06-26 17:32:26] INFO: Tab widget added to layout
+[2025-06-26 17:32:26] INFO: Creating conversion tab
+[2025-06-26 17:32:26] INFO: Starting conversion tab creation
+[2025-06-26 17:32:26] INFO: Conversion tab widget created
+[2025-06-26 17:32:26] INFO: API enhancement checkbox created
+[2025-06-26 17:32:26] INFO: About to call get_api_status()
+[2025-06-26 17:32:26] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:32:26] INFO: API status configuration completed
+[2025-06-26 17:32:26] INFO: API enhancement checkbox added to layout
+[2025-06-26 17:32:26] INFO: About to update API status label
+[2025-06-26 17:32:26] INFO: API status label updated
+[2025-06-26 17:32:26] INFO: Conversion tab created
+[2025-06-26 17:32:26] INFO: Creating log tab
+[2025-06-26 17:32:26] INFO: Log tab created
+[2025-06-26 17:32:26] INFO: Creating settings tab
+[2025-06-26 17:32:26] INFO: Settings tab created
+[2025-06-26 17:32:26] INFO: MainApp initialization completed successfully
+[2025-06-26 17:32:35] INFO: Starting file browser
+[2025-06-26 17:32:45] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:32:47] INFO: Starting conversion of file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:45:23] INFO: Conversion cancelled by user
+[2025-06-26 17:45:29] INFO: Application closing - threads cleaned up
+[2025-06-26 17:45:47] INFO: Starting MainApp initialization
+[2025-06-26 17:45:47] INFO: Window title set
+[2025-06-26 17:45:47] INFO: Window geometry set
+[2025-06-26 17:45:47] INFO: Window style set
+[2025-06-26 17:45:47] INFO: Creating XML converter...
+[2025-06-26 17:45:47] INFO: XML converter created successfully
+[2025-06-26 17:45:47] INFO: Variables initialized
+[2025-06-26 17:45:47] INFO: Worker threads initialized
+[2025-06-26 17:45:47] INFO: Application started
+[2025-06-26 17:45:47] INFO: About to call init_ui()
+[2025-06-26 17:45:47] INFO: Starting UI initialization
+[2025-06-26 17:45:47] INFO: Creating central widget
+[2025-06-26 17:45:47] INFO: Creating main layout
+[2025-06-26 17:45:47] INFO: Creating tab widget
+[2025-06-26 17:45:47] INFO: Tab widget styled
+[2025-06-26 17:45:47] INFO: Tab widget added to layout
+[2025-06-26 17:45:47] INFO: Creating conversion tab
+[2025-06-26 17:45:47] INFO: Starting conversion tab creation
+[2025-06-26 17:45:47] INFO: Conversion tab widget created
+[2025-06-26 17:45:47] INFO: Conversion mode radio buttons created
+[2025-06-26 17:45:47] INFO: About to call get_api_status()
+[2025-06-26 17:45:47] INFO: get_api_status() returned: {'available': True, 'enabled': True, 'manager_ready': True}
+[2025-06-26 17:45:47] INFO: API status configuration completed
+[2025-06-26 17:45:47] INFO: About to update API status label
+[2025-06-26 17:45:47] INFO: API status label updated
+[2025-06-26 17:45:47] INFO: Conversion tab created
+[2025-06-26 17:45:47] INFO: Creating log tab
+[2025-06-26 17:45:47] INFO: Log tab created
+[2025-06-26 17:45:47] INFO: Creating settings tab
+[2025-06-26 17:45:47] INFO: Settings tab created
+[2025-06-26 17:45:47] INFO: MainApp initialization completed successfully
+[2025-06-26 17:46:09] INFO: Starting file browser
+[2025-06-26 17:46:21] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:46:24] INFO: Starting conversion of file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 17:46:26] SUCCESS: Conversion completed successfully. File: gerald_endnote.xml, Method: EndNote XML to BibTeX (ACM Style) - Standard Mode, Entries: 244
+[2025-06-26 17:46:30] INFO: Starting save file dialog
+[2025-06-26 17:47:01] INFO: Saving file as: /Users/hetawk/Documents/Coding_Env/latex/gerald/latex_code/ref/myref.bib
+[2025-06-26 17:47:01] SUCCESS: File successfully saved to: /Users/hetawk/Documents/Coding_Env/latex/gerald/latex_code/ref/myref.bib
+[2025-06-26 17:47:03] INFO: Opened directory: /Users/hetawk/Documents/Coding_Env/latex/gerald/latex_code/ref
+[2025-06-26 17:51:25] INFO: Application closing - threads cleaned up
+[2025-06-26 19:17:55] INFO: Starting MainApp initialization
+[2025-06-26 19:17:55] INFO: Window title set
+[2025-06-26 19:17:55] INFO: Window geometry set
+[2025-06-26 19:17:55] INFO: Window style set
+[2025-06-26 19:17:55] INFO: Creating XML converter...
+[2025-06-26 19:17:55] INFO: XML converter created successfully
+[2025-06-26 19:17:55] INFO: Variables initialized
+[2025-06-26 19:17:55] INFO: Worker threads initialized
+[2025-06-26 19:17:55] INFO: Application started
+[2025-06-26 19:17:55] INFO: About to call init_ui()
+[2025-06-26 19:17:55] INFO: Starting UI initialization
+[2025-06-26 19:17:55] INFO: Creating central widget
+[2025-06-26 19:17:55] INFO: Creating main layout
+[2025-06-26 19:17:55] INFO: Creating tab widget
+[2025-06-26 19:17:55] INFO: Tab widget styled
+[2025-06-26 19:17:55] INFO: Tab widget added to layout
+[2025-06-26 19:17:55] INFO: Creating conversion tab
+[2025-06-26 19:17:55] INFO: Starting conversion tab creation
+[2025-06-26 19:17:55] INFO: Conversion tab widget created
+[2025-06-26 19:17:55] INFO: Conversion mode radio buttons created
+[2025-06-26 19:17:55] INFO: About to call get_api_status()
+[2025-06-26 19:17:55] INFO: get_api_status() returned: {'available': True, 'manager_loaded': True, 'enhancement_enabled': True}
+[2025-06-26 19:17:55] INFO: API status configuration completed
+[2025-06-26 19:17:55] INFO: About to update API status label
+[2025-06-26 19:17:55] INFO: API status label updated
+[2025-06-26 19:17:55] INFO: Conversion tab created
+[2025-06-26 19:17:55] INFO: Creating log tab
+[2025-06-26 19:17:55] INFO: Log tab created
+[2025-06-26 19:17:55] INFO: Creating settings tab
+[2025-06-26 19:17:55] INFO: Settings tab created
+[2025-06-26 19:17:55] INFO: MainApp initialization completed successfully
+[2025-06-26 19:19:38] INFO: Starting file browser
+[2025-06-26 19:20:06] INFO: Selected file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 19:20:22] INFO: Starting conversion of file: /Users/hetawk/Downloads/gerald_endnote.xml
+[2025-06-26 19:20:24] SUCCESS: Conversion completed successfully. File: gerald_endnote.xml, Method: EndNote XML to BibTeX (ACM Style) - Standard Mode, Entries: 266
+[2025-06-26 19:20:26] INFO: Starting save file dialog
+[2025-06-26 19:21:14] INFO: Saving file as: /Users/hetawk/Documents/Coding_Env/latex/gerald/latex_code/ref/myref.bib
+[2025-06-26 19:21:14] SUCCESS: File successfully saved to: /Users/hetawk/Documents/Coding_Env/latex/gerald/latex_code/ref/myref.bib
+[2025-06-26 19:21:19] INFO: Application closing - threads cleaned up

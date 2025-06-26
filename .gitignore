@@ -5,7 +5,30 @@ __pycache__/
 
 # C extensions
 *.so
-conversion_log.txt/
+
+# Application specific
+conversion_log.txt
+*.log
+out/
+test_output/
+converted.bib
+*_backup.py
+*_clean.py
+
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+
+# OS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
 
 # Distribution / packaging
@@ -202,3 +225,6 @@ env/
 
 # Environment variables
 .env
+
+# Output directory
+out/

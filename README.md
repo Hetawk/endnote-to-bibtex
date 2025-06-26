@@ -13,14 +13,21 @@ When working with Microsoft Word, EndNote is a powerful reference management too
 ## Features
 
 - **Simple Conversion**: Convert EndNote XML files directly to BibTeX format with a single click
+- **Two Conversion Modes**:
+  - **Standard Conversion**: Fast processing using only data from your XML file
+  - **Enhanced Conversion**: Enriches references by fetching missing metadata from external APIs (Semantic Scholar & CrossRef)
+- **Real-time Progress Tracking**: Watch conversion progress with detailed status updates and cancellation support
+- **Duplicate Detection & Removal**: Automatically identifies and removes duplicate references, keeping the highest quality version
+- **Unique Key Generation**: Ensures all BibTeX keys are unique with intelligent naming and automatic numbering
 - **Styled Text Support**: Preserves formatting from EndNote styled text in the conversion process
 - **Field Mapping**: Intelligently maps EndNote fields to appropriate BibTeX fields
-- **Reference Preview**: Preview converted BibTeX entries before saving
+- **Reference Preview**: Preview converted BibTeX entries before saving with real-time log updates
 - **Flexible Saving Options**: Save directly to a file or to a selected directory
 - **Warning Suppression**: Option to suppress warnings about missing fields
 - **Detailed Logging**: Comprehensive logging for troubleshooting and tracking conversions
 - **Dynamic BibTeX String Generation**: Automatically identifies and categorizes journals and publishers for optimal BibTeX formatting
 - **Smart Publication Recognition**: Identifies and properly formats conference proceedings, journals, and other publication types
+- **Cross-platform Compatibility**: Works on Windows, macOS, and Linux with native file dialogs
 
 ## Installation
 
@@ -28,6 +35,14 @@ When working with Microsoft Word, EndNote is a powerful reference management too
 
 - Python 3.6+
 - PyQt5
+
+### Optional Dependencies (for Enhanced Mode)
+
+For the enhanced conversion mode that fetches missing metadata from external APIs:
+
+```
+pip install requests fuzzywuzzy python-Levenshtein
+```
 
 ### Setup
 

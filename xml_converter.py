@@ -4,9 +4,24 @@ import re
 from datetime import datetime
 import collections
 
+# Import the external API manager for robust reference completion
+try:
+    from external_api_manager import ExternalAPIManager
+    API_AVAILABLE = True
+except ImportError:
+    print("Warning: External API manager not available. Install requirements: pip install requests fuzzywuzzy python-Levenshtein")
+    API_AVAILABLE = False
+
 
 class XML:
     def __init__(self):
+        # Initialize external API manager for robust reference completion
+        self.api_manager = ExternalAPIManager() if API_AVAILABLE else None
+        self.enable_api_enhancement = API_AVAILABLE  # Can be toggled via UI
+
+        # Progress callback for GUI updates
+        self.progress_callback = None
+
         self.entry_type_map = {
             'Journal Article': 'article',
             'Book': 'book',
@@ -33,74 +48,6 @@ class XML:
         self.use_biblatex_fields = False  # Option to use BibLaTeX field names
         self.escape_latex_chars = True  # Escape LaTeX special characters
         self.debug_mode = True  # Enable debug mode by default to help diagnose issues
-
-        # LaTeX special characters that need escaping
-        self.latex_special_chars = {
-            '&': r'\&',
-            '%': r'\%',
-            '$': r'\$',
-            '#': r'\#',
-            '_': r'\_',
-            '{': r'\{',
-            '}': r'\}',
-            '~': r'\textasciitilde{}',
-            '^': r'\textasciicircum{}',
-            '\\': r'\textbackslash{}',
-            '<': r'\textless{}',
-            '>': r'\textgreater{}'
-        }
-
-        # BibTeX to BibLaTeX field name mapping
-        self.biblatex_field_map = {
-            'journal': 'journaltitle',
-            'address': 'location',
-            'school': 'institution',
-            'articleno': 'number',  # Map articleno to number in BibLaTeX
-        }
-
-        # Track journals and publishers for string definitions
-        self.journals = {}  # Format: {journal_key: {full_name: "", abbreviated: "", category: ""}}
-        self.publishers = {}  # Format: {publisher_key: {name: "", category: ""}}
-
-        # Keep track of journal names to keys for duplicate detection
-        self.journal_name_to_key = {}  # {name: key} mapping to avoid duplicates
-
-        # Enhanced categories for grouping with more comprehensive lists
-        self.journal_categories = {
-            'ACM': ['ACM', 'Association for Computing Machinery', 'CACM', 'Communications of the ACM', 'Commun. ACM',
-                    'Trans. ACM', 'Transactions on', 'SIGPLAN', 'SIGCHI', 'SIGGRAPH', 'SIGSOFT', 'SIGIR', 'SIGKDD', 'SIGMOD'],
-            'IEEE': ['IEEE', 'Institute of Electrical and Electronics Engineers', 'Transactions on', 'Journal of',
-                     'Proceedings of the IEEE', 'Computer Society'],
-            'SIAM': ['SIAM', 'Society for Industrial and Applied Mathematics', 'Journal on', 'Review'],
-            'AMS': ['AMS', 'American Mathematical Society', 'Mathematical'],
-            'Springer': ['Springer', 'Lecture Notes in Computer Science', 'LNCS', 'Lecture Notes in'],
-            'Elsevier': ['Elsevier', 'Science Direct', 'Information Sciences', 'Computer Science'],
-            'Conference': ['Proceedings of', 'Conference on', 'Symposium on', 'Workshop on']
-        }
-
-        # Publisher categories for grouping
-        self.publisher_categories = {
-            'Academic': ['Academic', 'Academic Press', 'University'],
-            'ACM': ['ACM', 'Association for Computing Machinery'],
-            'IEEE': ['IEEE', 'Institute of Electrical and Electronics Engineers'],
-            'Commercial': ['Wiley', 'Springer', 'Elsevier', 'McGraw', 'Addison', 'Wesley']
-        }
-
-        # Pattern matchers for intelligent categorization
-        self.journal_patterns = {
-            'Conference': [r'proc\.?\s+of', r'proceedings', r'conference', r'symposium', r'workshop'],
-            'Journal': [r'journal', r'transactions', r'quarterly', r'review', r'letters'],
-            'Magazine': [r'magazine', r'bulletin', r'forum', r'digest'],
-        }
-
-    def escape_latex(self, text):
-        """Escape LaTeX special characters in text."""
-        if not self.escape_latex_chars or not text:
-            return text
-
-        for char, replacement in self.latex_special_chars.items():
-            text = text.replace(char, replacement)
-        return text
 
     def convert_to_bibtex(self, xml_data):
         # Reset collections and errors list
@@ -165,6 +112,11 @@ class XML:
         # Only collect journal and publisher info if string definitions are enabled
         if self.use_string_definitions:
             try:
+                # Report that we're collecting string definitions
+                self._call_progress_callback(
+                    0, len(records),
+                    "Collecting journal and publisher information for string definitions..."
+                )
                 # Process journal and publisher information
                 print(
                     "Collecting journal and publisher information for string definitions...")
@@ -194,6 +146,16 @@ class XML:
         for index, record in enumerate(records):
             try:
                 processed_count += 1
+
+                # Call progress callback and check for cancellation
+                should_continue = self._call_progress_callback(
+                    index + 1, len(records),
+                    f"Processing record {index + 1}/{len(records)}"
+                )
+                if not should_continue:
+                    print("Conversion cancelled by user")
+                    break
+
                 # Print details for first few records and every 20th
                 if index < 3 or (index % 20 == 0):
                     print(f"Processing record {index + 1}/{len(records)}...")
@@ -326,19 +288,34 @@ class XML:
                     print(f"- {err}")
             return ""
 
+        # Remove duplicates and ensure unique keys
+        self._call_progress_callback(
+            len(records), len(records),
+            "Removing duplicates and ensuring unique keys..."
+        )
+        deduplicated_entries = self._remove_duplicates_and_fix_keys(
+            bibtex_entries)
+        print(
+            f"Deduplicated from {len(bibtex_entries)} to {len(deduplicated_entries)} unique entries")
+
         # Generate output with string definitions if applicable
         if self.use_string_definitions:
+            # Report that we're generating string definitions
+            self._call_progress_callback(
+                len(records), len(records),
+                "Generating BibTeX string definitions..."
+            )
             string_definitions = self._generate_string_definitions()
             if string_definitions:
                 print(
                     f"Generated {string_definitions.count('@String')} string definitions")
-                return string_definitions + '\n\n' + '\n\n'.join(bibtex_entries)
+                return string_definitions + '\n\n' + '\n\n'.join(deduplicated_entries)
 
         # Default return if no string definitions
-        return '\n\n'.join(bibtex_entries)
+        return '\n\n'.join(deduplicated_entries)
 
     def _extract_fields_from_xml(self, record):
-        """Extract fields from the XML record with better error handling."""
+        """Extract fields from the XML record with better error handling and API enhancement."""
         try:
             fields = {}
 
@@ -361,7 +338,7 @@ class XML:
                 if author_names:
                     fields['author'] = ' and '.join(author_names)
 
-            # Extract years
+            # Extract year
             year_elem = record.find('.//dates/year')
             if year_elem is not None:
                 year_text = self._extract_text_from_styled_element(year_elem)
@@ -410,7 +387,79 @@ class XML:
                 if doi_text:
                     fields['doi'] = doi_text.strip()
 
-            # Add additional fields as needed for a complete BibTeX entry
+            # Extract URL if available
+            url_elem = record.find('.//urls/related-urls/url')
+            if url_elem is not None:
+                url_text = self._extract_text_from_styled_element(url_elem)
+                if url_text:
+                    fields['url'] = url_text.strip()
+
+            # Extract abstract if available
+            abstract_elem = record.find('.//abstract')
+            if abstract_elem is not None:
+                abstract_text = self._extract_text_from_styled_element(
+                    abstract_elem)
+                if abstract_text:
+                    fields['abstract'] = abstract_text.strip()
+
+            # Extract publisher if available
+            publisher_elem = record.find('.//publisher')
+            if publisher_elem is not None:
+                publisher_text = self._extract_text_from_styled_element(
+                    publisher_elem)
+                if publisher_text:
+                    fields['publisher'] = publisher_text.strip()
+
+            # Extract keywords if available
+            keywords_elem = record.find('.//keywords')
+            if keywords_elem is not None:
+                keywords = []
+                for keyword in keywords_elem.findall('.//keyword'):
+                    keyword_text = self._extract_text_from_styled_element(
+                        keyword)
+                    if keyword_text:
+                        keywords.append(keyword_text.strip())
+                if keywords:
+                    fields['keywords'] = ', '.join(keywords)
+
+            # Enhanced reference completion using external APIs if enabled
+            if self.debug_mode:
+                print(
+                    f"Attempting to enhance reference: {fields.get('title', '')[:50]}...")
+            if (self.enable_api_enhancement and self.api_manager and
+                    len(fields.get('title', '')) > 10):
+                # Check if we're missing critical fields
+                missing_critical_fields = not all([
+                    fields.get('doi'),
+                    fields.get('journal') or fields.get('booktitle'),
+                    fields.get('year'),
+                    fields.get('pages') or fields.get(
+                        'volume') or fields.get('number')
+                ])
+
+                if missing_critical_fields:
+                    try:
+                        enhanced_fields = self.api_manager.enhance_reference(
+                            fields)
+
+                        # Count how many new fields were added
+                        added_fields = []
+                        for key, value in enhanced_fields.items():
+                            if key not in fields or not fields.get(key):
+                                added_fields.append(key)
+
+                        if added_fields:
+                            print(
+                                f"Enhanced with fields: {', '.join(added_fields)}")
+                            fields.update(enhanced_fields)
+                        else:
+                            print(f"No additional fields found via API")
+                    except Exception as e:
+                        print(f"API enhancement failed: {e}")
+                        # Continue with existing fields if API fails
+                else:
+                    print(f"Reference appears complete, skipping API enhancement")
+
             return fields
         except Exception as e:
             print(f"Error extracting fields: {e}")
@@ -429,8 +478,8 @@ class XML:
         children = list(element)
         if children:
             result += " { "
-            result += ", ".join([self._describe_xml_structure(child,
-                                                              depth+1, max_depth) for child in children[:5]])
+            result += ", ".join([self._describe_xml_structure(child, depth+1, max_depth)
+                                 for child in children[:5]])
             if len(children) > 5:
                 result += f", ... ({len(children)-5} more)"
             result += " }"
@@ -439,7 +488,6 @@ class XML:
             if len(text) > 30:
                 text = text[:27] + "..."
             result += f": '{text}'"
-
         return result
 
     def _get_required_fields(self, entry_type):
@@ -479,7 +527,7 @@ class XML:
             style_elements = element.findall('.//style')
             if style_elements:
                 styled_text = "".join([(style.text or "")
-                                       for style in style_elements])
+                                      for style in style_elements])
                 if styled_text.strip():
                     text = styled_text
 
@@ -539,13 +587,7 @@ class XML:
                 # Special handling for journal names that should use string definitions
                 if field == 'journal' and self.use_string_definitions:
                     journal_name = fields['journal']
-                    journal_key = None
-
-                    # Look for this journal in our collection
-                    for j_key, j_info in self.journals.items():
-                        if j_info['full_name'] == journal_name or j_info['abbreviated'] == journal_name:
-                            journal_key = j_key
-                            break
+                    journal_key = self._find_journal_key(journal_name)
 
                     # Use string reference if found, otherwise use the full text
                     if journal_key:
@@ -556,13 +598,7 @@ class XML:
                 # Special handling for publishers that should use string definitions
                 elif field == 'publisher' and self.use_string_definitions:
                     publisher_name = fields['publisher']
-                    publisher_key = None
-
-                    # Look for this publisher in our collection
-                    for p_key, p_info in self.publishers.items():
-                        if p_info['name'] == publisher_name:
-                            publisher_key = p_key
-                            break
+                    publisher_key = self._find_publisher_key(publisher_name)
 
                     # Use string reference if found, otherwise use the full text
                     if publisher_key:
@@ -591,10 +627,9 @@ class XML:
                 # Special handling for pages - calculate numpages if needed
                 elif field == 'pages':
                     pages_text = fields['pages']
+                    formatted_fields += f"\n  pages = {{{pages_text}}},"
 
                     if '--' in pages_text or '-' in pages_text:
-                        formatted_fields += f"\n  pages = {{{pages_text}}},"
-
                         # Try to calculate numpages for page ranges
                         try:
                             separator = '--' if '--' in pages_text else '-'
@@ -610,23 +645,6 @@ class XML:
                         # Handle single page as article number
                         formatted_fields += f"\n  articleno = {{{pages_text}}},"
                         formatted_fields += f"\n  numpages = {{1}},"
-
-                # Special handling for booktitle with string definitions
-                elif field == 'booktitle' and self.use_string_definitions:
-                    booktitle_text = fields['booktitle']
-                    booktitle_key = None
-
-                    # Look for this booktitle in our collection
-                    for j_key, j_info in self.journals.items():
-                        if j_info['full_name'] == booktitle_text or j_info['abbreviated'] == booktitle_text:
-                            booktitle_key = j_key
-                            break
-
-                    # Use string reference if found, otherwise use the full text
-                    if booktitle_key:
-                        formatted_fields += f"\n  booktitle = {booktitle_key},"
-                    else:
-                        formatted_fields += f"\n  booktitle = {{{booktitle_text}}},"
 
                 # Standard handling for other fields
                 else:
@@ -691,210 +709,304 @@ class XML:
                 publisher_key = self._generate_acm_publisher_key(
                     publisher_name)
 
-                # Store publisher info
+                # Store the publisher info
                 if publisher_key not in self.publishers:
-                    category = self._determine_publisher_category(
-                        publisher_name)
                     self.publishers[publisher_key] = {
                         'name': publisher_name,
-                        'category': category
+                        'category': self._determine_publisher_category(publisher_name)
                     }
 
-    def _determine_publisher_category(self, publisher_name=None, journal_name=None, isbn=None):
-        """
-        Determine the category of the publisher based on available information.
+    def _find_journal_key(self, journal_name):
+        """Find the key for a journal name in our collected journals."""
+        for key, info in self.journals.items():
+            if (info.get('full_name') == journal_name or
+                    info.get('abbreviated') == journal_name):
+                return key
+        return None
 
-        Args:
-            publisher_name (str, optional): Name of the publisher if available
-            journal_name (str, optional): Name of the journal if available
-            isbn (str, optional): ISBN if available
-
-        Returns:
-            str: Category of the publisher (academic, commercial, society, or unknown)
-        """
-        if publisher_name is None and journal_name is None:
-            return "unknown"
-
-        # List of academic publishers
-        academic_publishers = ["Springer", "Elsevier", "IEEE", "ACM", "Wiley", "Oxford University Press",
-                               "Cambridge University Press", "Taylor & Francis", "SAGE", "Nature Publishing Group"]
-
-        # List of academic journals or conferences
-        academic_journals = ["Transactions", "Proceedings", "Journal", "Conference", "IEEE", "ACM",
-                             "Frontiers in", "Advances in", "Medical Image", "Artificial Intelligence"]
-
-        # First check predefined categories
-        if publisher_name:
-            publisher_lower = publisher_name.lower()
-
-            # Check against the publisher_categories dictionary
-            for category, keywords in self.publisher_categories.items():
-                for keyword in keywords:
-                    if keyword.lower() in publisher_lower:
-                        return category
-
-            # Check academic publisher list
-            for academic in academic_publishers:
-                if academic.lower() in publisher_lower:
-                    return "Academic"
-
-            # Check if it contains university
-            if "university" in publisher_lower or "press" in publisher_lower:
-                return "Academic"
-
-            # Check for commercial publishers markers
-            commercial_markers = ["inc", "ltd", "corp", "company", "limited"]
-            for marker in commercial_markers:
-                if marker in publisher_lower:
-                    return "Commercial"
-
-        # Check journal name if publisher not definitive
-        if journal_name:
-            journal_lower = journal_name.lower()
-
-            # Check academic journal patterns
-            for academic in academic_journals:
-                if academic.lower() in journal_lower:
-                    return "Academic"
-
-            # Check for society journals
-            if "ieee" in journal_lower or "acm" in journal_lower:
-                return "Society"
-
-        # Default to commercial if we have a publisher but couldn't categorize
-        if publisher_name:
-            return "Commercial"
-
-        return "unknown"
+    def _find_publisher_key(self, publisher_name):
+        """Find the key for a publisher name in our collected publishers."""
+        for key, info in self.publishers.items():
+            if info.get('name') == publisher_name:
+                return key
+        return None
 
     def _generate_acm_journal_key(self, journal_name):
-        """Generate a key for a journal following ACM conventions."""
-        # Handle common special cases
-        if "ACM" in journal_name:
-            if "Transactions" in journal_name:
-                return "TACM"
-            if "Communications" in journal_name:
-                return "CACM"
-            if "Journal" in journal_name:
-                return "JACM"
+        """Generate an ACM-style journal key."""
+        # Remove common words and create acronym
+        words = journal_name.replace('&', 'and').split()
+        key_words = []
 
-        # IEEE journals
-        if "IEEE" in journal_name:
-            if "Transactions" in journal_name:
-                topic = re.search(r'Transactions on\s+(\w+)', journal_name)
-                if topic:
-                    return f"IEEETrans{topic.group(1)}"
-                return "IEEETransComp"
-            if "Proceedings" in journal_name:
-                return "ProcIEEE"
+        for word in words:
+            clean_word = ''.join(c for c in word if c.isalnum())
+            if clean_word and clean_word.lower() not in {'of', 'on', 'in', 'for', 'and', 'the', 'a', 'an'}:
+                key_words.append(clean_word)
 
-        # For other journals, create an acronym
-        # Filter out common words
-        common_words = {'of', 'the', 'and', 'on', 'in', 'for', 'to', 'with'}
-        words = [w for w in re.findall(
-            r'\b[A-Za-z]+\b', journal_name) if w.lower() not in common_words]
-
-        # For short journal names, just use the name with spaces removed
-        if len(words) <= 2:
-            return journal_name.replace(' ', '')
-
-        # For longer names, create an acronym from first letters of each word
-        return ''.join(word[0].upper() for word in words if word)
+        if key_words:
+            return 'J' + ''.join(word[:3].upper() for word in key_words[:3])
+        else:
+            return 'JGEN'
 
     def _generate_acm_publisher_key(self, publisher_name):
-        """Generate a key for a publisher following ACM conventions."""
-        # Handle common publisher prefixes and suffixes
-        publisher_name = publisher_name.replace("Press", "").replace(
-            "Publishing", "").replace("Inc.", "").strip()
+        """Generate an ACM-style publisher key."""
+        # Remove common words and create acronym
+        words = publisher_name.replace('&', 'and').split()
+        key_words = []
 
-        # Handle common special cases
-        if "ACM" in publisher_name:
-            return "ACMPress"
-        if "Addison" in publisher_name and "Wesley" in publisher_name:
-            return "AddisonWesley"
-        if "Springer" in publisher_name:
-            return "Springer"
-        if "IEEE" in publisher_name:
-            return "IEEE"
-        if "Wiley" in publisher_name:
-            return "JohnWileySons"
-        if "Cambridge" in publisher_name and "University" in publisher_name:
-            return "CambridgePress"
-        if "Oxford" in publisher_name and "University" in publisher_name:
-            return "OxfordPress"
+        for word in words:
+            clean_word = ''.join(c for c in word if c.isalnum())
+            if clean_word and clean_word.lower() not in {'of', 'on', 'in', 'for', 'and', 'the', 'a', 'an', 'inc', 'llc', 'ltd'}:
+                key_words.append(clean_word)
 
-        # For other publishers, create a camelCase key
-        return re.sub(r'[^\w]', '', publisher_name)
+        if key_words:
+            return 'P' + ''.join(word[:3].upper() for word in key_words[:2])
+        else:
+            return 'PGEN'
+
+    def _determine_journal_category(self, journal_name):
+        """Determine the category of a journal based on its name."""
+        name_lower = journal_name.lower()
+
+        if any(word in name_lower for word in ['computer', 'computing', 'software', 'programming']):
+            return 'Computer Science'
+        elif any(word in name_lower for word in ['engineering', 'technical', 'ieee']):
+            return 'Engineering'
+        elif any(word in name_lower for word in ['science', 'research', 'nature']):
+            return 'Science'
+        else:
+            return 'General'
+
+    def _determine_publisher_category(self, publisher_name):
+        """Determine the category of a publisher based on its name."""
+        name_lower = publisher_name.lower()
+
+        if any(word in name_lower for word in ['ieee', 'acm', 'springer', 'elsevier']):
+            return 'Academic'
+        elif any(word in name_lower for word in ['press', 'university']):
+            return 'University Press'
+        else:
+            return 'Commercial'
 
     def _generate_string_definitions(self):
-        """Generate BibTeX string definitions in ACM style."""
-        if not self.journals and not self.publishers:
-            return ""
+        """Generate BibTeX string definitions for journals and publishers."""
+        definitions = []
 
-        output = ""
+        # Generate journal string definitions
+        for key, info in self.journals.items():
+            if info['full_name']:
+                definitions.append(f'@String{{{key} = "{info["full_name"]}}}')
 
-        # Group journals by category
-        journal_categories = {}
-        for j_key, j_info in self.journals.items():
-            category = j_info.get('category', 'Other')
-            if category not in journal_categories:
-                journal_categories[category] = []
-            journal_categories[category].append((j_key, j_info))
+        # Generate publisher string definitions
+        for key, info in self.publishers.items():
+            if info['name']:
+                definitions.append(f'@String{{{key} = "{info["name"]}}}')
 
-        # Add journal string definitions
-        if self.journals:
-            output += "% Journals\n\n"
-            output += "% First the Full Name is given, then the abbreviation used in the AMS Math\n"
-            output += "% Reviews, with an indication if it could not be found there.\n"
-            output += "% Note the 2nd overwrites the 1st, so swap them if you want the full name.\n\n"
+        return '\n'.join(definitions)
 
-            # Priority order for journal categories
-            category_order = ['ACM', 'IEEE', 'SIAM', 'AMS',
-                              'Conference', 'Journal', 'Magazine', 'Other']
+    def _remove_duplicates_and_fix_keys(self, bibtex_entries):
+        """Remove duplicate entries and ensure unique BibTeX keys."""
+        unique_entries = {
+        }  # Dictionary to store unique entries: key -> (entry_text, fingerprint, score)
+        key_counts = {}  # Track how many times each base key has been used
 
-            # Process categories in priority order
-            for category in category_order:
-                if category in journal_categories and journal_categories[category]:
-                    output += f" %{{{category}}}\n"
+        for entry in bibtex_entries:
+            # Extract the current key and content
+            key, content = self._parse_bibtex_entry(entry)
+            if not key or not content:
+                continue
 
-                    # Sort journals by key within category
-                    for j_key, j_info in sorted(journal_categories[category], key=lambda x: x[0]):
-                        # Add full name if available
-                        if j_info.get('full_name'):
-                            output += f" @String{{{j_key} = \"{j_info['full_name']}\" }}\n"
-                        # Add abbreviated name if available and different
-                        if j_info.get('abbreviated') and j_info.get('abbreviated') != j_info.get('full_name'):
-                            output += f" @String{{{j_key} = \"{j_info['abbreviated']}\" }}\n"
+            # Generate a content fingerprint for duplicate detection
+            fingerprint = self._generate_content_fingerprint(content)
 
-            # Process any remaining categories
-            for category in sorted(set(journal_categories.keys()) - set(category_order)):
-                if journal_categories[category]:
-                    output += f" %{{{category}}}\n"
-                    for j_key, j_info in sorted(journal_categories[category], key=lambda x: x[0]):
-                        if j_info.get('full_name'):
-                            output += f" @String{{{j_key} = \"{j_info['full_name']}\" }}\n"
-                        if j_info.get('abbreviated') and j_info.get('abbreviated') != j_info.get('full_name'):
-                            output += f" @String{{{j_key} = \"{j_info['abbreviated']}\" }}\n"
+            # Check if this is a duplicate based on content similarity
+            duplicate_key = None
+            for existing_key, (existing_entry, existing_fingerprint, existing_score) in unique_entries.items():
+                if self._are_entries_similar(fingerprint, existing_fingerprint):
+                    duplicate_key = existing_key
+                    break
 
-        # Group publishers by category
-        publisher_categories = {}
-        for p_key, p_info in self.publishers.items():
-            category = p_info.get('category', 'Other')
-            if category not in publisher_categories:
-                publisher_categories[category] = []
-            publisher_categories[category].append((p_key, p_info))
+            # Score this entry (higher score = better quality)
+            entry_score = self._score_entry_quality(content)
 
-        # Add publisher string definitions
-        if self.publishers:
-            output += "\n% Publishers % ================================================= |\n\n"
+            if duplicate_key:
+                # This is a duplicate - keep the better one
+                existing_score = unique_entries[duplicate_key][2]
+                if entry_score > existing_score:
+                    unique_entries[duplicate_key] = (
+                        entry, fingerprint, entry_score)
+                    print(
+                        f"Replacing duplicate entry {duplicate_key} with better version")
+                else:
+                    print(f"Skipping duplicate entry for {key}")
+                continue
 
-            # Process publisher categories
-            for category in sorted(publisher_categories.keys()):
-                if category != "Other":
-                    output += f" %{{{category}}}\n"
+            # Ensure unique key
+            base_key = self._extract_base_key(key)
+            unique_key = self._generate_unique_key(base_key, key_counts)
+            key_counts[base_key] = key_counts.get(base_key, 0) + 1
 
-                # Add publishers in this category
-                for p_key, p_info in sorted(publisher_categories[category], key=lambda x: x[0]):
-                    output += f" @String{{{p_key} = \"{p_info['name']}\" }}\n"
+            # Replace the key in the entry if needed
+            if unique_key != key:
+                entry = entry.replace(
+                    f"@{self._extract_entry_type(entry)}{{{key},",
+                    f"@{self._extract_entry_type(entry)}{{{unique_key},", 1)
+                print(f"Renamed key from {key} to {unique_key}")
 
-        return output
+            unique_entries[unique_key] = (entry, fingerprint, entry_score)
+
+        # Return the deduplicated entries
+        return [entry_data[0] for entry_data in unique_entries.values()]
+
+    def _parse_bibtex_entry(self, entry):
+        """Parse a BibTeX entry to extract key and content."""
+        import re
+        match = re.match(r'@(\w+)\{([^,]+),\s*\n(.*)\n\}', entry, re.DOTALL)
+        if match:
+            entry_type, key, content = match.groups()
+            return key.strip(), content.strip()
+        else:
+            return None, None
+
+    def _extract_entry_type(self, entry):
+        """Extract the entry type from a BibTeX entry."""
+        import re
+        match = re.match(r'@(\w+)\{', entry)
+        return match.group(1) if match else "misc"
+
+    def _extract_base_key(self, key):
+        """Extract base key without numeric suffixes."""
+        import re
+        base_match = re.match(r'([a-zA-Z]+)(\d*)', key)
+        return base_match.group(1) if base_match else key
+
+    def _generate_unique_key(self, base_key, key_counts):
+        """Generate a unique key by adding numeric suffix if needed."""
+        count = key_counts.get(base_key, 0)
+        if count == 0:
+            return base_key
+        else:
+            return f"{base_key}{count + 1}"
+
+    def _generate_content_fingerprint(self, content):
+        """Generate a fingerprint for entry content to detect duplicates."""
+        import re
+        # Extract key fields for comparison
+        title_match = re.search(
+            r'title\s*=\s*[{"]([^"}]+)["}]', content, re.IGNORECASE)
+        author_match = re.search(
+            r'author\s*=\s*[{"]([^"}]+)["}]', content, re.IGNORECASE)
+        year_match = re.search(
+            r'year\s*=\s*[{"]?(\d{4})["}]?', content, re.IGNORECASE)
+
+        title = title_match.group(1).lower().strip() if title_match else ""
+        author = author_match.group(1).lower().strip() if author_match else ""
+        year = year_match.group(1) if year_match else ""
+
+        # Normalize title and author for comparison
+        title = re.sub(r'[^\w\s]', '', title)  # Remove punctuation
+        title = re.sub(r'\s+', ' ', title)     # Normalize whitespace
+        author = re.sub(r'[^\w\s]', '', author)  # Remove punctuation
+        author = re.sub(r'\s+', ' ', author)     # Normalize whitespace
+
+        return {
+            'title': title,
+            'author': author,
+            'year': year
+        }
+
+    def _are_entries_similar(self, fingerprint1, fingerprint2):
+        """Check if two entries are similar enough to be considered duplicates."""
+        title1, title2 = fingerprint1['title'], fingerprint2['title']
+        author1, author2 = fingerprint1['author'], fingerprint2['author']
+        year1, year2 = fingerprint1['year'], fingerprint2['year']
+
+        # If any key field is missing, be more conservative
+        if not title1 or not title2:
+            return False
+
+        # Calculate title similarity (simple approach)
+        title_similarity = self._calculate_text_similarity(title1, title2)
+
+        # Check author similarity (more lenient due to formatting variations)
+        author_similarity = self._calculate_text_similarity(
+            author1, author2) if author1 and author2 else 1.0
+
+        # Year must match exactly if both present
+        year_match = (year1 == year2) if (year1 and year2) else True
+
+        # Consider it a duplicate if title similarity is high and year matches
+        return (title_similarity > 0.85 and year_match and
+                (not author1 or not author2 or author_similarity > 0.7))
+
+    def _calculate_text_similarity(self, text1, text2):
+        """Calculate similarity between two text strings (0-1)."""
+        if not text1 or not text2:
+            return 0.0
+
+        # Simple similarity based on common words
+        words1 = set(text1.split())
+        words2 = set(text2.split())
+
+        if not words1 or not words2:
+            return 0.0
+
+        intersection = len(words1.intersection(words2))
+        union = len(words1.union(words2))
+        return intersection / union if union > 0 else 0.0
+
+    def _score_entry_quality(self, content):
+        """Score the quality of a BibTeX entry (higher = better)."""
+        import re
+        score = 0
+
+        # Count number of fields present
+        field_pattern = r'(\w+)\s*=\s*[{"][^"}]+["}]'
+        fields = re.findall(field_pattern, content, re.IGNORECASE)
+        score += len(fields) * 2  # More fields = better
+
+        # Bonus for important fields
+        important_fields = ['title', 'author', 'year',
+                            'journal', 'booktitle', 'doi', 'pages']
+        for field in important_fields:
+            if re.search(rf'{field}\s*=', content, re.IGNORECASE):
+                score += 5
+
+        # Bonus for DOI presence (indicates higher quality metadata)
+        if re.search(r'doi\s*=', content, re.IGNORECASE):
+            score += 10
+
+        # Bonus for complete page numbers
+        if re.search(r'pages\s*=\s*[{"][\d-]+["}]', content, re.IGNORECASE):
+            score += 3
+
+        # Penalty for missing critical fields
+        if not re.search(r'title\s*=', content, re.IGNORECASE):
+            score -= 20
+        if not re.search(r'author\s*=', content, re.IGNORECASE):
+            score -= 15
+        if not re.search(r'year\s*=', content, re.IGNORECASE):
+            score -= 10
+
+        return score
+
+    def set_api_enhancement(self, enabled):
+        """Enable or disable API enhancement."""
+        self.enable_api_enhancement = enabled and API_AVAILABLE
+
+    def get_api_status(self):
+        """Get the status of API availability."""
+        return {
+            'available': API_AVAILABLE,
+            'manager_loaded': self.api_manager is not None,
+            'enhancement_enabled': self.enable_api_enhancement
+        }
+
+    def set_progress_callback(self, callback):
+        """Set a callback function for progress updates."""
+        self.progress_callback = callback
+
+    def _call_progress_callback(self, current, total, message=""):
+        """Call the progress callback if it exists."""
+        if self.progress_callback:
+            return self.progress_callback(current, total, message)
+        return True  # Continue processing if no callback
